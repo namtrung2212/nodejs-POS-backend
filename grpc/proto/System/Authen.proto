@@ -1,0 +1,20 @@
+syntax = "proto3"; 
+
+package Authen; 
+
+service AuthenService {
+  rpc getUsers (GetUsersRequest) returns (GetUsersResponse);
+}
+
+message User {
+  string username = 1;
+}
+
+message GetUsersRequest {
+
+}
+
+message GetUsersResponse  {
+  string result = 1;
+  int64 res_at = 2;
+}

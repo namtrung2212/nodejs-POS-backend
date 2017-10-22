@@ -1,0 +1,19 @@
+syntax = "proto3"; 
+
+package Company; 
+
+service CompanyService {
+  rpc getCompanys (GetCompanysRequest) returns (GetCompanysResponse);
+}
+
+message Company {
+}
+
+message GetCompanysRequest {
+
+}
+
+message GetCompanysResponse  {
+  repeated Company items = 1;
+  int64 res_at = 2;
+}

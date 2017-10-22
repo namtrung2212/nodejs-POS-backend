@@ -1,0 +1,19 @@
+syntax = "proto3"; 
+
+package Sale; 
+
+service SaleOrderService {
+  rpc getOrders (GetSaleOrdersRequest) returns (GetSaleOrdersResponse);
+}
+
+message SaleOrder {
+}
+
+message GetSaleOrdersRequest {
+
+}
+
+message GetSaleOrdersResponse  {
+  repeated SaleOrder orders = 1;
+  int64 res_at = 2;
+}

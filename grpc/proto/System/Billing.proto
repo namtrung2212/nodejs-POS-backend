@@ -1,0 +1,19 @@
+syntax = "proto3"; 
+
+package Billing; 
+
+service BillingService {
+  rpc getBillings (GetBillingsRequest) returns (GetBillingsResponse);
+}
+
+message Billing {
+}
+
+message GetBillingsRequest {
+
+}
+
+message GetBillingsResponse  {
+  repeated Billing items = 1;
+  int64 res_at = 2;
+}

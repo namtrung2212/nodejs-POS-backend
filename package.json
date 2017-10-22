@@ -1,0 +1,38 @@
+{
+  "name": "posserver",
+  "version": "1.0.0",
+  "description": "",
+  "main": "",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "express": "^4.16.2",
+    "fs": "0.0.1-security",
+    "grpc": "^1.6.6",
+    "https": "^1.0.0",
+    "jsonwebtoken": "^8.1.0",
+    "mysql": "^2.15.0",
+    "prompt": "^1.0.0",
+    "q": "^1.5.0",
+    "string-format": "^0.5.0",
+    "uuid": "^3.1.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "create sysdb": "cd database && node createdb.js -sys",
+    "create busdb1": "cd database && node createdb.js -bus 1",
+    "create busdb2": "cd database && node createdb.js -bus 2",
+    "system": "cd servers/system && forever start system.js",
+    "api": "cd servers/api && forever start api.js",
+    "business": "cd servers/business && forever start business.js",
+    "dbscript": "cd database && node run.js",
+    "startall": "npm run system && npm run business && npm run api",
+    "stopall": "forever stopall"
+  },
+  "repository": {},
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": ""
+  },
+  "homepage": ""
+}
