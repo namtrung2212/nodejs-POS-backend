@@ -15,7 +15,7 @@ app.use(bodyParser.json())
 app.use('/',router.load(grpcClient));
 
 var httpServer = http.createServer(app);
-httpServer.listen(config.APINodePort);
+httpServer.listen(config.getServer("srv_api").port);
 
 // HTTPS : use NGINX instead
 //var https = require('https');
@@ -26,4 +26,4 @@ httpServer.listen(config.APINodePort);
 //httpsServer.listen(8443); 
 
 
-console.log('API Server running at '+ config.APINodePort);
+console.log('API Server running at '+ config.getServer("srv_api").port);

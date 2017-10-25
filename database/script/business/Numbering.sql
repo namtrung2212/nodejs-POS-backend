@@ -1,5 +1,5 @@
 CREATE TABLE `Numbering` (
-  `business` binary(18) NOT NULL,
+  `business` binary(17) NOT NULL,
   
   `ICIssue_prefix` varchar(10) DEFAULT NULL,
   `ICIssue_index` int(10) DEFAULT '0',

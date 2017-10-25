@@ -1,11 +1,11 @@
 
 CREATE TABLE `ARCreditMemo` (
 
-  `id` binary(18) NOT NULL,
+  `id` binary(17) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `docdate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `user` binary(18) NOT NULL,
+  `user` binary(17) NOT NULL,
   `username` varchar(255) DEFAULT NULL,
 
   `creditmemono` varchar(10) DEFAULT NULL,
@@ -15,19 +15,19 @@ CREATE TABLE `ARCreditMemo` (
   `released` tinyint(1) NOT NULL DEFAULT '0',
   `glposted` tinyint(1) NOT NULL DEFAULT '0',
   `glperiod` varchar(10) DEFAULT NULL,
-  `glvoucher` binary(18)  DEFAULT NULL,
+  `glvoucher` binary(17)  DEFAULT NULL,
   `glvoucherno` varchar(100) DEFAULT NULL,
 
-  `business` binary(18) NOT NULL,
-  `branch` binary(18) DEFAULT NULL,
+  `business` binary(17) NOT NULL,
+  `branch` binary(17) DEFAULT NULL,
   `branchno` varchar(100) DEFAULT NULL,
-  `store` binary(18) DEFAULT NULL,
+  `store` binary(17) DEFAULT NULL,
   `storeno` varchar(100) DEFAULT NULL,
-  `storecell` binary(18) DEFAULT NULL,
+  `storecell` binary(17) DEFAULT NULL,
   `storecellno` varchar(100) DEFAULT NULL,
 
   `phonenum` varchar(20) DEFAULT NULL,
-  `customer` binary(18) DEFAULT NULL,
+  `customer` binary(17) DEFAULT NULL,
   `customername` varchar(255) DEFAULT NULL,
   
   `decrease_VAT` decimal(15,8) NOT NULL,
@@ -38,11 +38,11 @@ CREATE TABLE `ARCreditMemo` (
   `refunded` decimal(15,8) DEFAULT NULL,
   `refundable` decimal(15,8) DEFAULT NULL,
   
-  `pre_record` binary(18) DEFAULT NULL,
+  `pre_record` binary(17) DEFAULT NULL,
   `pre_hashed` bigint(20) DEFAULT NULL,
   `cusbal_befor` decimal(15,8) DEFAULT NULL,
   `cusbal_after` decimal(15,8) DEFAULT NULL,
-  `checksum` bigint(20) NOT NULL,
+  `checksum` binary(20) NOT NULL,
 
   PRIMARY KEY (`id`),
   INDEX `SEARCH_INDEX_1`(`business` ASC,`created_at` ASC),

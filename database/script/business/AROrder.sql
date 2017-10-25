@@ -1,11 +1,11 @@
 
 CREATE TABLE `AROrder` (
   
-  `id` binary(18) NOT NULL,
+  `id` binary(17) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `docdate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `user` binary(18) NOT NULL,
+  `user` binary(17) NOT NULL,
   `username` varchar(255) DEFAULT NULL,
 
   `orderno` varchar(100) DEFAULT NULL,
@@ -14,27 +14,27 @@ CREATE TABLE `AROrder` (
   `released` tinyint(1) NOT NULL DEFAULT '0',
   `status` varchar(20) DEFAULT NULL,
 
-  `business` binary(18) NOT NULL,
-  `branch` binary(18) DEFAULT NULL,
+  `business` binary(17) NOT NULL,
+  `branch` binary(17) DEFAULT NULL,
   `branchno` varchar(100) DEFAULT NULL,
-  `store` binary(18) DEFAULT NULL,
+  `store` binary(17) DEFAULT NULL,
   `storeno` varchar(100) DEFAULT NULL,
-  `storecell` binary(18) DEFAULT NULL,
+  `storecell` binary(17) DEFAULT NULL,
   `storecellno` varchar(100) DEFAULT NULL,
-  `warehouse` binary(18) DEFAULT NULL,
+  `warehouse` binary(17) DEFAULT NULL,
   `warehouseno` varchar(100) DEFAULT NULL,
 
-  `ar_shipment` binary(18) DEFAULT NULL,
+  `ar_shipment` binary(17) DEFAULT NULL,
   `ar_shipmentno` varchar(10) DEFAULT NULL,
-  `ar_invoice` binary(18) DEFAULT NULL,
+  `ar_invoice` binary(17) DEFAULT NULL,
   `ar_invoiceno` varchar(10) DEFAULT NULL,
-  `ic_issue` binary(18) DEFAULT NULL,
+  `ic_issue` binary(17) DEFAULT NULL,
   `ic_issueno` varchar(10) DEFAULT NULL,
-  `ap_purchase` binary(18) DEFAULT NULL,
+  `ap_purchase` binary(17) DEFAULT NULL,
   `ap_purchaseno` varchar(10) DEFAULT NULL,
 
   `phonenum` varchar(20) DEFAULT NULL,
-  `customer` binary(18) DEFAULT NULL,
+  `customer` binary(17) DEFAULT NULL,
   `customername` varchar(255) DEFAULT NULL,
   
   `qty` decimal(15,8) DEFAULT NULL,
@@ -64,7 +64,7 @@ CREATE TABLE `AROrder` (
   `purchased` decimal(15,8) DEFAULT NULL,
   `purchase_remain` decimal(15,8) DEFAULT NULL,
 
-  `checksum` bigint(20) NOT NULL,
+  `checksum` binary(20) NOT NULL,
 
   PRIMARY KEY (`id`),
   INDEX `SEARCH_INDEX_1`(`business` ASC,`created_at` ASC),

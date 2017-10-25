@@ -1,49 +1,75 @@
 var config = {}
 
+config.CurrentServer = "srv_api"; // depend on each server
 
-config.Secret='LoveOfMyLife'; 
-config.Databases = [
-    {Type : "system" ,No : "sys" , Address : "localhost/system"},
-    {Type : "business" ,No : "bus1" , Address : "localhost/business1"},
-    {Type : "business" ,No : "bus2" , Address : "localhost/business2"},
-    {Type : "business" ,No : "bus3" , Address : "localhost/business3"},
-    {Type : "social" ,No : "sc1" , Address : "localhost/social1"},
-    {Type : "social" ,No : "sc2" , Address : "localhost/social2"},
-    {Type : "social" ,No : "sc3" , Address : "localhost/social3"}
+config.isProductionMode = false; 
+
+config.Servers = [
+    { name: "srv_api", type: "api", ExternalAdr: "127.0.0.1", LocalAdr: "0.0.0.0", port: "3005" },
+    { name: "srv_sys", type: "system", ExternalAdr: "127.0.0.1", LocalAdr: "0.0.0.0", port: "30252", storage: "sys" },
+    { name: "srv_bus1", type: "business", ExternalAdr: "127.0.0.1", LocalAdr: "0.0.0.0", port: "3001", storage: "bus1" },
+    { name: "srv_bus2", type: "business", ExternalAdr: "127.0.0.1", LocalAdr: "0.0.0.0", port: "3002", storage: "bus2" },
+    { name: "srv_bus3", type: "business", ExternalAdr: "127.0.0.1", LocalAdr: "0.0.0.0", port: "3003", storage: "bus3" }
+];
+config.Storages = [
+    { name: "sys", type: "system", host: 'localhost', database: 'possys', user: 'root', password: 'Nirvana!@#', connectionLimit: 10 },
+    { name: "bus1", type: "business", host: 'localhost', database: 'posbus1', user: 'root', password: 'Nirvana!@#', connectionLimit: 10 },
+    { name: "bus2", type: "business", host: 'localhost', database: 'posbus2', user: 'root', password: 'Nirvana!@#', connectionLimit: 10 },
+    { name: "bus3", type: "business", host: 'localhost', database: 'posbus3', user: 'root', password: 'Nirvana!@#', connectionLimit: 10 },
+    { name: "soc1", type: "social", host: 'localhost', database: 'possoc1', user: 'root', password: 'Nirvana!@#', connectionLimit: 10 },
+    { name: "soc2", type: "social", host: 'localhost', database: 'possoc2', user: 'root', password: 'Nirvana!@#', connectionLimit: 10 },
+    { name: "soc3", type: "social", host: 'localhost', database: 'possoc3', user: 'root', password: 'Nirvana!@#', connectionLimit: 10 },
 ];
 
+config.RemoteRedis = {
+    address: "localhost",
+    port: 6379
+};
 
-config.APINodePort = "3005";
-config.SystemNodeLocalAdr = "0.0.0.0:30252";
-config.SystemNodeExternalAdr = "localhost:30252";
+config.Secret = 'LoveOfMyLife';
 
-config.BusinessNodes = [
-    {Index : 1 , ExternalAdr : "127.0.0.1:3001", LocalAdr : "0.0.0.0:3001", DBNo : "bus1" },
-    {Index : 2 , ExternalAdr : "127.0.0.1:3002", LocalAdr : "0.0.0.0:3002", DBNo : "bus2" },
-    {Index : 3 , ExternalAdr : "127.0.0.1:3003", LocalAdr : "0.0.0.0:3003", DBNo : "bus3" }
-];
+config.getServer = function (srvname) {
 
+    var name = config.CurrentServer;
+    if (srvname != null && config.isProductionMode == false)
+        name = srvname;
 
-config.isSystemNode = 1;
-config.isHTTPNode = 1;
-config.isBusinessNode = 1;
-config.BusinessNodeIndex = 1; 
-
-
-config.getCurrentBusinessServer = function(){
-    
-    if(config.isBusinessNode == 1 && config.BusinessNodeIndex > 0 ){
-      
-        for (var i = 0; i < config.BusinessNodes.length; i++) {
-            if(config.BusinessNodes[i].Index == config.BusinessNodeIndex){
-                return config.BusinessNodes[i];
-            }
-          }
+    for (var i = 0; i < config.Servers.length; i++) {
+        if (config.Servers[i].name == name)
+            return config.Servers[i];
     }
 
     return null;
-    
+
 };
-    
+
+
+config.getStorage = function (srvname) {
+
+    var server = config.getServer(srvname);
+
+    for (var i = 0; i < config.Storages.length; i++) {
+        if (config.Storages[i].name == server.storage)
+            return config.Storages[i];
+    }
+
+    return null;
+};
+
+config.getMySQLConfig = function (srvname) {
+
+    var storage = config.getStorage(srvname);
+    if (storage != null)
+        return {
+            connectionLimit: storage.connectionLimit,
+            host: storage.host,
+            user: storage.user,
+            password: storage.password,
+            database: storage.database,
+            multipleStatements: true
+        };
+
+    return null;
+};
 
 module.exports = config;

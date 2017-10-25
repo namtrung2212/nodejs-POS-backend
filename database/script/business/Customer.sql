@@ -1,6 +1,6 @@
 CREATE TABLE `Customer` (
 
-  `id` binary(18) NOT NULL,
+  `id` binary(17) NOT NULL,
   `islanded` tinyint(4) NOT NULL DEFAULT '0',
 
   `customerno` varchar(100) DEFAULT NULL,
@@ -8,7 +8,7 @@ CREATE TABLE `Customer` (
   `address` varchar(255) DEFAULT NULL,
   `phonenum` varchar(20) DEFAULT NULL,
   `email` varchar(255) DEFAULT NULL,
-  `business` binary(18) DEFAULT NULL,
+  `business` binary(17) DEFAULT NULL,
   
   `islinked` tinyint(4) NOT NULL DEFAULT '0',
   `note` varchar(255) DEFAULT NULL,
@@ -23,7 +23,7 @@ CREATE TABLE `Customer` (
 
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `checksum` bigint(20) NOT NULL,
+  `checksum` binary(20) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `NAME_UNIQUE` (`business`,`customerno`),
   INDEX `CODE_INDEX`(`business` ASC,`id` ASC) 

@@ -1,11 +1,11 @@
 
 CREATE TABLE `CATransfer` (
 
-  `id` binary(18) NOT NULL,
+  `id` binary(17) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `docdate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `user` binary(18) NOT NULL,
+  `user` binary(17) NOT NULL,
   `username` varchar(255) DEFAULT NULL,
 
   `transferno` varchar(10) DEFAULT NULL,
@@ -15,21 +15,21 @@ CREATE TABLE `CATransfer` (
   `status` varchar(20) DEFAULT NULL,
   `glposted` tinyint(1) NOT NULL DEFAULT '0',
   `glperiod` varchar(10) DEFAULT NULL,
-  `glvoucher` binary(18) DEFAULT NULL,
+  `glvoucher` binary(17) DEFAULT NULL,
   `glvoucherno` varchar(100) DEFAULT NULL,
 
-  `business` binary(18) NOT NULL,
+  `business` binary(17) NOT NULL,
 
-  `source_ca_account` binary(18) DEFAULT NULL,
+  `source_ca_account` binary(17) DEFAULT NULL,
   `source_ca_accountno` varchar(10) DEFAULT NULL,
   `source_amount` decimal(15,8) NOT NULL,
   `source_fee` decimal(15,8) NOT NULL,
 
-  `dest_ca_account` binary(18) DEFAULT NULL,
+  `dest_ca_account` binary(17) DEFAULT NULL,
   `dest_ca_accountno` varchar(10) DEFAULT NULL,
   `dest_amount` decimal(15,8) NOT NULL,
   `dest_fee` decimal(15,8) NOT NULL,
-  `checksum` bigint(20) NOT NULL,
+  `checksum` binary(20) NOT NULL,
 
   PRIMARY KEY (`id`),
   INDEX `SEARCH_INDEX_1`(`business` ASC,`created_at` ASC),

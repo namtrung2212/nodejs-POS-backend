@@ -1,3 +1,4 @@
+import "base.proto";
 import "System/Authen.proto";
 import "System/Billing.proto";
 import "System/Company.proto";

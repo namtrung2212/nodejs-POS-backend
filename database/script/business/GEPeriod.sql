@@ -1,5 +1,5 @@
 CREATE TABLE `GEPeriod` (
-  `business` binary(18) NOT NULL,
+  `business` binary(17) NOT NULL,
   `no` varchar(10) DEFAULT NULL,
   `startdate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `enddate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,

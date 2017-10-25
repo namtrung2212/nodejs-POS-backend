@@ -1,8 +1,8 @@
 CREATE TABLE `Store` (
 
-  `id` binary(18) NOT NULL,
-  `business` binary(18) NOT NULL,
-  `branch` binary(18) DEFAULT NULL,
+  `id` binary(17) NOT NULL,
+  `business` binary(17) NOT NULL,
+  `branch` binary(17) DEFAULT NULL,
   `branchno` varchar(100) DEFAULT NULL,
   `storeno` varchar(100) DEFAULT NULL,
   `name` varchar(60) NOT NULL,
@@ -11,7 +11,7 @@ CREATE TABLE `Store` (
   `status` tinyint(4) NOT NULL DEFAULT '1',
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `checksum` bigint(20) NOT NULL,
+  `checksum` binary(20) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `NAME_UNIQUE` (`business`,`storeno`),
   INDEX `NAME_INDEX`(`business` ASC,`id` ASC) 

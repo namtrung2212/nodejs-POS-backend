@@ -1,20 +1,11 @@
 syntax = "proto3"; 
-
 package Authen; 
 
 service AuthenService {
-  rpc getUsers (GetUsersRequest) returns (GetUsersResponse);
-}
-
-message User {
-  string username = 1;
-}
-
-message GetUsersRequest {
-
-}
-
-message GetUsersResponse  {
-  string result = 1;
-  int64 res_at = 2;
+  rpc sendotp (base.BaseRequest) returns (base.BaseResponse);
+  rpc checkotp (base.BaseRequest) returns (base.BaseResponse);
+  rpc register (base.BaseRequest) returns (base.BaseResponse);
+  rpc login (base.BaseRequest) returns (base.BaseResponse);
+  rpc getUsers (base.BaseRequest) returns (base.BaseResponse);
+  
 }

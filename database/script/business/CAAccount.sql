@@ -1,10 +1,10 @@
 CREATE TABLE `CAAccount` (
 
-  `id` binary(18) NOT NULL,
-  `business` binary(18) NOT NULL,
-  `branch` binary(18) DEFAULT NULL,
+  `id` binary(17) NOT NULL,
+  `business` binary(17) NOT NULL,
+  `branch` binary(17) DEFAULT NULL,
   `branchno` varchar(100) DEFAULT NULL,
-  `store` binary(18) DEFAULT NULL,
+  `store` binary(17) DEFAULT NULL,
   `storeno` varchar(100) DEFAULT NULL,
   `restrict_bybranch` tinyint(1) NOT NULL DEFAULT '0',
   `restrict_bystore` tinyint(1) NOT NULL DEFAULT '0',
@@ -22,7 +22,7 @@ CREATE TABLE `CAAccount` (
   `status` tinyint(4) NOT NULL DEFAULT '1',
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `checksum` bigint(20) NOT NULL,
+  `checksum` binary(20) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `NAME_UNIQUE` (`business`,`accountno`),
   INDEX `NAME_INDEX`(`business` ASC,`id` ASC) 

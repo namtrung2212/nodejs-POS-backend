@@ -6,9 +6,11 @@ var serverHelper = require("../../grpc/grpcServerHelper");
 
 clientHelper.connectToSystem(false);
 
-var address = config.getCurrentBusinessServer().LocalAdr;
+var serverConfig = config.getServer("srv_bus1");
+var address = serverConfig.LocalAdr + ":" + serverConfig.port;
+
 var services = require("./services");
 var server = serverHelper.initServer(address,services,false);
 server.start();
-console.log('Business Server ' + config.BusinessNodeIndex + ' running at ' +address);
+console.log('Business Server ' + serverConfig.name + ' running at ' +address);
 
