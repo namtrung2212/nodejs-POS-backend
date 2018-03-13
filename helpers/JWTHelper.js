@@ -1,28 +1,45 @@
 
+var public = {};
 
 var jwt = require('jsonwebtoken');
 var config = require("../config");
-var exports = module.exports = {};
 
-
-exports.createRegisteringToken = function () {
-    var token = jwt.sign({data: config.Secret}, config.Secret, {
-        expiresIn: 60*60*24
+public.shorttermToken = function (data) {
+    var token = jwt.sign({ data: data }, config.Secret, {
+        expiresIn: 60 * 5
     });
     return token;
 
 };
 
 
-exports.createToken = function (user) {
-    var token = jwt.sign({data: user}, config.Secret, {
-        expiresIn: 60*60*24
+public.longtermToken = function (data) {
+    var token = jwt.sign({ data: data }, config.Secret, {
+        expiresIn: 60 * 60 * 24
     });
     return token;
 
 };
 
-exports.verifyToken = function (token) {
-    return jwt.verify(token, config.Secret);
+public.verifyToken = async function (token) {
 
+    return await new Promise((resolve, reject) => {
+
+        jwt.verify(token, config.Secret, function (err, decoded) {
+            resolve(err == null);
+        });
+    });
 };
+
+public.decodeToken = async function (token) {
+
+    return await new Promise((resolve, reject) => {
+
+        jwt.verify(token, config.Secret, function (err, decoded) {
+            resolve(err == null ? decoded : null);
+        });
+    });
+};
+
+
+module.exports = public;

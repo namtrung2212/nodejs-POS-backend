@@ -1,18 +1,26 @@
 CREATE TABLE `Store` (
 
   `id` binary(17) NOT NULL,
-  `business` binary(17) NOT NULL,
-  `branch` binary(17) DEFAULT NULL,
-  `branchno` varchar(100) DEFAULT NULL,
-  `storeno` varchar(100) DEFAULT NULL,
-  `name` varchar(60) NOT NULL,
-  `address` varchar(255) DEFAULT NULL,
-  `config` JSON NOT NULL ,
-  `status` tinyint(4) NOT NULL DEFAULT '1',
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `checksum` binary(20) NOT NULL,
+  `user` binary(17) DEFAULT NULL,
+  
+  `config` JSON DEFAULT NULL ,
+  `metadata` JSON DEFAULT NULL ,
+  `active` tinyint(4) NOT NULL DEFAULT '1',
+  `note` varchar(255) DEFAULT NULL,
+  `checksum` binary(16) DEFAULT NULL,
+
+  `business` binary(17) NOT NULL,
+  `branch` binary(17) DEFAULT NULL,
+  `warehouse` binary(17) DEFAULT NULL,
+  `agent` binary(17) DEFAULT NULL,
+
+  `no` varchar(100) DEFAULT NULL,
+  `name` varchar(60) DEFAULT NULL,
+  `address` varchar(255) DEFAULT NULL,
+  
   PRIMARY KEY (`id`),
-  UNIQUE KEY `NAME_UNIQUE` (`business`,`storeno`),
-  INDEX `NAME_INDEX`(`business` ASC,`id` ASC) 
+  UNIQUE KEY `NO_UNIQUE` (`business`,`no`),
+  INDEX `ID_INDEX`(`business` ASC,`id` ASC) 
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

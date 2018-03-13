@@ -6,7 +6,7 @@ var bodyParser = require('body-parser')
 var router      =   require("./router");
 var config = require('../../config');
 
-var grpcClient = require("../../grpc/grpcClientHelper");
+var grpcClient = require("../../grpc/grpcClient");
 grpcClient.connect(false);
 
 var app = express();

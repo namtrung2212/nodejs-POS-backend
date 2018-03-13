@@ -1,8 +1,4 @@
-var OTP = require('otp');
+var user = { name: 'Joe' };
+var zip = user?.address?.zip;
 
-var otp = OTP({
-    secret : "trung"
-});
-
-console.log(otp.hotp(4));
-console.log(otp.totp());
+console.log(zip);

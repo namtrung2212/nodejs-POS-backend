@@ -1,34 +1,41 @@
 
-const express = require('express')
-var exports = module.exports = {};
+const express = require('express');
+var public = module.exports = {};
 
-var SaleRouter = require("./routers/Sale")
-var PurchaseRouter = require("./routers/Purchase")
-var ShipmentRouter = require("./routers/Shipment")
-var InventoryRouter = require("./routers/Inventory")
-var BalanceRouter = require("./routers/PartnerBalance")
-var ExpenseRouter = require("./routers/Expense")
-var OrganizationRouter = require("./routers/Organization")
-var ConfigureRouter = require("./routers/Configure")
-var AuthenRouter = require("./routers/Authentication")
-var LayoutRouter = require("./routers/Layout")
+var REST = require(__dirname + "/../../helpers/RESTHelper");
 
-exports.load = function(grpcClient){
-    
-    var router      =   express.Router();
-    
-    router.use('/sale', SaleRouter.getRouter(grpcClient));
-    router.use('/purchase', PurchaseRouter.getRouter(grpcClient));
-    router.use('/shipment', ShipmentRouter.getRouter(grpcClient));
-    router.use('/inventory', InventoryRouter.getRouter(grpcClient));
-    router.use('/balance', BalanceRouter.getRouter(grpcClient));
-    router.use('/expense', ExpenseRouter.getRouter(grpcClient));
-    router.use('/organization', OrganizationRouter.getRouter(grpcClient));
-    router.use('/configure', ConfigureRouter.getRouter(grpcClient));
-    router.use('/authen', AuthenRouter.getRouter(grpcClient));
-    router.use('/layout', LayoutRouter.getRouter(grpcClient));
+var Account = require("./routers/system/Account");
+var Business = require("./routers/system/Business");
+var User = require("./routers/business/organization/User");
+
+public.load = function (grpc) {
+
+    var router = express.Router();
+
+    router.use('/account', Account.initRouter(grpc));
+    router.use('/business', Business.initRouter(grpc));
+
+    router.use('/configure', REST.initRouter("Configure", grpc, true));
+    router.use('/generator', REST.initRouter("Generator", grpc, true));
+    router.use('/permission', REST.initRouter("Permission", grpc, true));
+
+    router.use('/branch', REST.initRouter("Branch", grpc, true));
+    router.use('/employee', REST.initRouter("Employee", grpc, true));
+    router.use('/store', REST.initRouter("Store", grpc, true));
+    router.use('/warehouse', REST.initRouter("Warehouse", grpc, true));
+    router.use('/user', User.initRouter(grpc));
+
+    router.use('/agent', REST.initRouter("Agent", grpc, true));
+    router.use('/customer', REST.initRouter("Customer", grpc, true));
+    router.use('/vendor', REST.initRouter("Vendor", grpc, true));
+    router.use('/partnerbalance', REST.initRouter("Partnerbalance", grpc, true));
+
+    router.use('/item', REST.initRouter("Item", grpc, true));
+    router.use('/itemgroup', REST.initRouter("ItemGroup", grpc, true));
+
+    router.use('/sale/menu', REST.initRouter("SaleMenu", grpc, true));
+    router.use('/sale/pricelist', REST.initRouter("SalePriceList", grpc, true));
 
     return router;
 };
-    
-    
+

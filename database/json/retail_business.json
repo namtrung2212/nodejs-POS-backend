@@ -1,0 +1,50 @@
+{
+    "use_purchase_module" : true,
+    "use_inventory_module" : true,
+    "use_shipment_module" : true,
+    "use_partnerbalance_module" : true,
+    "use_expense_module" : true,
+    "use_accounting_module" : false,
+    "use_custom_permission_module" : true,
+    "use_advance_reporting" : false,
+
+    "use_multi_branch" : true,
+    "use_multi_store" : true,
+
+    "inventory_config" : {
+        "use_multi_stock" : true,
+        "use_sku" : true,
+        "use_lotnum" : true,
+        "use_multiUOM" : true,
+        "use_kit" : true,
+        "use_transfer_2steps" : true,
+        "use_valuation" : true
+    },
+    
+    "sale_config" : {
+        "use_salebyorder" : true,
+        "use_cashsale" : true,
+        "use_POS" : true,
+        "use_salereturn" : true,
+        "salebyorder_config" : {
+
+            "use_shipment" : true,
+            "use_munual_discount" : true,
+            "use_prepayment" : true
+        },
+        "cashsale_config" : {
+
+            "use_shipment" : true,
+            "use_manual_discount" : true
+        },
+        "POS_config" : {
+
+        },
+        "use_multiUOM" : true,
+        "use_kit" : true,
+        "use_transfer_2steps" : true,
+        "use_valuation" : true
+    }
+
+
+}

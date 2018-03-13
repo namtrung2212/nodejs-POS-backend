@@ -1,4 +1,0 @@
-import "base.proto";
-import "Sale/SaleOrder.proto";
-import "Sale/CashSale.proto";
-import "Purchase/PurchaseOrder.proto";

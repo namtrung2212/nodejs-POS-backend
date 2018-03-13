@@ -4,38 +4,30 @@ CREATE TABLE `ARReturn` (
   `id` binary(17) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `docdate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `user` binary(17) NOT NULL,
-  `username` varchar(255) DEFAULT NULL,
+  `user` binary(17) DEFAULT NULL,
 
-  `returnno` varchar(100) DEFAULT NULL,
+  `metadata` JSON DEFAULT NULL ,
+  `note` varchar(255) DEFAULT NULL,
+  `checksum` binary(16) DEFAULT NULL,
+
+  `no` varchar(100) DEFAULT NULL,
+  `docdate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `ref` varchar(20) DEFAULT NULL,
   `reftype` varchar(20) DEFAULT NULL,
-  `released` tinyint(1) NOT NULL DEFAULT '0',
   `status` varchar(20) DEFAULT NULL,
 
   `business` binary(17) NOT NULL,
   `branch` binary(17) DEFAULT NULL,
-  `branchno` varchar(100) DEFAULT NULL,
   `store` binary(17) DEFAULT NULL,
-  `storeno` varchar(100) DEFAULT NULL,
-  `storecell` binary(17) DEFAULT NULL,
-  `storecellno` varchar(100) DEFAULT NULL,
+  `storecell` varchar(100) DEFAULT NULL,
   `warehouse` binary(17) DEFAULT NULL,
-  `warehouseno` varchar(100) DEFAULT NULL,
 
-  `ar_order` binary(17) DEFAULT NULL,
-  `ar_orderno` varchar(10) DEFAULT NULL,
-  `ar_shipment` binary(17) DEFAULT NULL,
-  `ar_shipmentno` varchar(10) DEFAULT NULL,
-  `ar_invoice` binary(17) DEFAULT NULL,
-  `ar_invoiceno` varchar(10) DEFAULT NULL,
-  `ic_issue_old` binary(17) DEFAULT NULL,
-  `ic_issue_oldno` varchar(10) DEFAULT NULL,
+  `arorder` binary(17) DEFAULT NULL,
+  `arshipment` binary(17) DEFAULT NULL,
+  `arinvoice` binary(17) DEFAULT NULL,
+  `icissue_old` binary(17) DEFAULT NULL,
 
-  `phonenum` varchar(20) DEFAULT NULL,
   `customer` binary(17) DEFAULT NULL,
-  `customername` varchar(255) DEFAULT NULL,
   
   `receipt_qty` decimal(15,8) DEFAULT NULL,
   `receipt_discamt` decimal(15,8) DEFAULT NULL,
@@ -49,19 +41,16 @@ CREATE TABLE `ARReturn` (
 
   `diff_VAT` decimal(15,8) DEFAULT NULL,
   `diff_amount` decimal(15,8) DEFAULT NULL,
-  `ar_creditmemo` binary(17) DEFAULT NULL,
-  `ar_creditmemono` varchar(10) DEFAULT NULL,
-  `ar_debitmemo` binary(17) DEFAULT NULL,
-  `ar_debitmemono` varchar(10) DEFAULT NULL,
+  `arcreditmemo` binary(17) DEFAULT NULL,
+  `arcreditmemono` varchar(10) DEFAULT NULL,
+  `ardebitmemo` binary(17) DEFAULT NULL,
+  `ardebitmemono` varchar(10) DEFAULT NULL,
 
-  `ic_issue` binary(17) DEFAULT NULL,
-  `ic_issueno` varchar(10) DEFAULT NULL,
-  `ic_receipt` binary(17) DEFAULT NULL,
-  `ic_receiptno` varchar(10) DEFAULT NULL,
-
-  `checksum` binary(20) NOT NULL,
+  `icissue` binary(17) DEFAULT NULL,
+  `icreceipt` binary(17) DEFAULT NULL,
 
   PRIMARY KEY (`id`),
   INDEX `SEARCH_INDEX_1`(`business` ASC,`created_at` ASC),
-  INDEX `SEARCH_INDEX_2`(`user` ASC,`created_at` ASC) 
+  INDEX `SEARCH_INDEX_2`(`user` ASC,`created_at` ASC) ,
+  INDEX `ID_INDEX`(`business` ASC,`id` ASC) 
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

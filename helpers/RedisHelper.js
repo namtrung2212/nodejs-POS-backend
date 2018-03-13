@@ -1,19 +1,24 @@
 
+var public = {};
+module.exports = public;
+
+console.log("Redis");
+
 var crypto = require('crypto');
 var Q = require('q');
 const RedisServer = require('redis-server');
 const RedisClient = require('redis');
 var config = require("../config");
-module.exports = exports;
 
 var localClient;
 var remoteClient;
 
-exports.start = function (resetLocal) {
+public.start = async function (resetLocal) {
 
     if (localClient == null) {
-        new RedisServer(6378).open(null);
-        localClient = RedisClient.createClient(6378, "localhost");
+        var port = parseInt(Math.random() * (9000 - 6000) + 6000);
+        new RedisServer(port).open(null);
+        localClient = RedisClient.createClient(port, "localhost");
         if (resetLocal)
             localClient.flushall();
     }
@@ -23,41 +28,86 @@ exports.start = function (resetLocal) {
 };
 
 
-exports.set = function (key, data, localSeconds, remoteSeconds) {
+
+public.test = function (table) {
+
+
+    return "213";
+};
+public.set = function (key, category, data, localSeconds, remoteSeconds) {
 
     var hexKey = crypto.createHash('md5').update(JSON.stringify(key)).digest("hex");
+    var newKey = category + hexKey;
 
     if (localClient != null && localSeconds != null && localSeconds > 0) {
 
-        localClient.set(hexKey, data, "EX", localSeconds);
+        localClient.set(newKey, data, "EX", localSeconds);
     }
     if (remoteClient != null && remoteSeconds != null && remoteSeconds > 0)
-        remoteClient.set(hexKey, data, "EX", remoteSeconds);
+        remoteClient.set(newKey, data, "EX", remoteSeconds);
 
 };
 
-exports.get = function (key, callback) {
 
-    var deferred = Q.defer();
-    
-    var hexKey = crypto.createHash('md5').update(JSON.stringify(key)).digest("hex");
+public.del = function (key, category) {
 
-    if (localClient != null && localClient.get(hexKey)) {
+    if (key) {
 
-        localClient.get(hexKey, function (err, reply) {
-            deferred.resolve(reply);
-        });
+        var hexKey = crypto.createHash('md5').update(JSON.stringify(key)).digest("hex");
+        var newKey = category + hexKey;
 
-    } else if (remoteClient != null && remoteClient.get(hexKey)) {
+        if (localClient != null)
+            localClient.del(newKey);
 
-        remoteClient.get(hexKey, function (err, reply) {
-            deferred.resolve(reply);
-        });
+        if (remoteClient != null)
+            remoteClient.del(newKey);
 
-    }else{
-        deferred.resolve(null);
+    } else {
+
+        if (localClient != null) {
+            localClient.keys(category, function (err, rows) {
+                for (var i = 0; i < rows.length; i++)
+                    localClient.del(rows[i]);
+            });
+        }
+
+        if (remoteClient != null) {
+            remoteClient.keys(category, function (err, rows) {
+                for (var i = 0; i < rows.length; i++)
+                    remoteClient.del(rows[i]);
+            });
+        }
     }
+};
 
+public.get = async function (key, category) {
 
-    return deferred.promise;
+    return new Promise(async function (resolve, reject) {
+
+        try {
+
+            var hexKey = crypto.createHash('md5').update(JSON.stringify(key)).digest("hex");
+            var newKey = category + hexKey;
+
+            if (localClient != null && localClient.get(newKey)) {
+
+                localClient.get(newKey, function (err, reply) {
+                    resolve(reply);
+                });
+
+            } else if (remoteClient != null && remoteClient.get(newKey)) {
+
+                remoteClient.get(newKey, function (err, reply) {
+                    resolve(reply);
+                });
+
+            } else {
+                resolve(null);
+            }
+
+        } catch (error) {
+
+            resolve(null);
+        }
+    });
 };

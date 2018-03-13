@@ -4,44 +4,32 @@ CREATE TABLE `APDebitAdjustItem` (
    `id` binary(17) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `docdate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `user` binary(17) NOT NULL,
-  `username` varchar(255) DEFAULT NULL,
+  `user` binary(17) DEFAULT NULL,
 
+  `metadata` JSON DEFAULT NULL ,
+  `note` varchar(255) DEFAULT NULL,
+  `checksum` binary(16) DEFAULT NULL,
+
+  `docdate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `ref` varchar(20) DEFAULT NULL,
   `reftype` varchar(20) DEFAULT NULL,
-  `released` tinyint(1) NOT NULL DEFAULT '0',
   `status` varchar(20) DEFAULT NULL,
-  `glposted` tinyint(1) NOT NULL DEFAULT '0',
-  `glperiod` varchar(10) DEFAULT NULL,
   `glvoucher` binary(17) DEFAULT NULL,
-  `glvoucherno` varchar(100) DEFAULT NULL,
 
   `business` binary(17) NOT NULL,
   `branch` binary(17) DEFAULT NULL,
-  `branchno` varchar(100) DEFAULT NULL,
   `store` binary(17) DEFAULT NULL,
-  `storeno` varchar(100) DEFAULT NULL,
-  `storecell` binary(17) DEFAULT NULL,
-  `storecellno` varchar(100) DEFAULT NULL,
-  
-  `ap_debitadjust` binary(17) NOT NULL,
-  `ap_debitadjustno` varchar(10) DEFAULT NULL,
-  `ap_bill` binary(17) DEFAULT NULL,
-  `ap_billno` varchar(10) DEFAULT NULL,
-  `ap_order` binary(17) DEFAULT NULL,
-  `ap_orderno` varchar(10) DEFAULT NULL,
-
-  `phonenum` varchar(20) DEFAULT NULL,
   `vendor` binary(17) DEFAULT NULL,
-  `vendorname` varchar(255) DEFAULT NULL,
+  
+  `apdebitadjust` binary(17) NOT NULL,
+  `apbill` binary(17) DEFAULT NULL,
+  `aporder` binary(17) DEFAULT NULL,
+
+  `desc` varchar(10) DEFAULT NULL,
 
   `bill_amt` decimal(15,8) DEFAULT NULL,
   `applied` decimal(15,8) NOT NULL,
 
-  `checksum` binary(20) NOT NULL,
-
   PRIMARY KEY (`id`),
-  INDEX `SEARCH_INDEX_1`(`business` ASC,`created_at` ASC),
-  INDEX `SEARCH_INDEX_2`(`user` ASC,`created_at` ASC) 
+  INDEX `ID_INDEX`(`business` ASC,`apdebitadjust` ASC,`id` ASC) 
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

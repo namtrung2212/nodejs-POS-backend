@@ -1,17 +1,18 @@
-const fs = require('fs');
-var grpc = require('grpc');
+
+var businesses = require("../../grpc/grpcClient");
+businesses.connectToBusinesses(false);
+
 var config = require('../../config');
-var clientHelper = require("../../grpc/grpcClientHelper");
-var serverHelper = require("../../grpc/grpcServerHelper");
+var server = require("../../grpc/grpcServer");
+var servername = "srv_sys";
+
 var services = require("./services");
-var MySQLHelper = require("../../helpers/MySQLHelper");
+let dbConfig = config.getMySQLConfig(servername);
+services.init(dbConfig);
+server.initServices(services);
 
-var serverConfig = config.getServer("srv_sys");
-var address = serverConfig.LocalAdr + ":" + serverConfig.port;
-var server = serverHelper.initServer(address,services,false);
-server.start();
+var srvConfig = config.getServer(servername);
+var adr = srvConfig.LocalAdr + ":" + srvConfig.port;
+server.start(adr, false);
 
-clientHelper.connectToBusinesses(false);
-MySQLHelper.connect("srv_sys",config.getMySQLConfig("srv_sys"));
-
-console.log('System Server running at '+ address);
+console.log('System Server running at ' + adr);
